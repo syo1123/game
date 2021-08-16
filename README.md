@@ -1,11 +1,11 @@
-#バージョン
+# Version
 python 3.8
 
-#モジュール
+# Requirements
 *pygame:2.0.0.dev6
 *numpy:1.19.1
 
-#実行
+# Demo
 ```bash
 python3 game.py
 ```
