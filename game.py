@@ -31,7 +31,10 @@ while True:
     action2=cr2.forward(agent_pos2,agent_inp_pos)
     action3=cr3.forward(agent_pos3,agent_inp_pos)
     action_inp=inp.forward(agent_inp_pos,agent_pos1,agent_pos2,agent_pos3)
-    agent_pos1,agent_pos2,agent_pos3,agent_inp_pos=env.step(action1,action2,action3,action_inp)
+    agent_pos1,agent_pos2,agent_pos3,agent_inp_pos,done=env.step(action1,action2,action3,action_inp)
+    if done==True:
+        agent_pos1,agent_pos2,agent_pos3,agent_inp_pos=env.reset()
+
 
 
 

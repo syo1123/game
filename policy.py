@@ -128,8 +128,6 @@ class action:
                 m[map_list[self.pre_act]]=0
                 #map_act=self.softmax(self.map[a_f])
                 map_act=self.softmax(m)
-                if self.inp_flag:
-                    print(map_act)
 
                 e_pos=exit[np.random.choice(np.arange(4),p=map_act)]
                 self.pre_e_pos=e_pos
@@ -143,8 +141,6 @@ class action:
             act=self.act_inp(a_argmin,e_argmin,argmin_exit,near_exit,cen)
             self.pre_e_pos=e_pos
 
-        if self.inp_flag:
-            print(cen,e_argmin,e_pos)
         self.pre_act=act
 
         return act

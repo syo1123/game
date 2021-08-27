@@ -44,6 +44,7 @@ class grid_world:
         self.field_ad_rend=[[0,0],[1,0],[2,0],
                             [0,1],[1,1],[2,1],
                            [0,2],[1,2],[2,2]]
+        self.done=[False,False,False]
 
 
     def get_map_data(self):
@@ -193,10 +194,12 @@ class grid_world:
         self.field_inp=self.reload_field(self.agent_inp_pos)
 
         self.deleate()
+        if False not in self.done:
+            done = True
 
 
 
-        return self.agent_pos_1,self.agent_pos_2,self.agent_pos_3,self.agent_inp_pos
+        return self.agent_pos_1,self.agent_pos_2,self.agent_pos_3,self.agent_inp_pos,done
 
     def check(self,pos,action):
         init_pos=pos
@@ -218,14 +221,19 @@ class grid_world:
     def deleate(self):
         a_pos=[self.agent_pos_1,self.agent_pos_2,self.agent_pos_3]
         d=[]
+        done=False
         for i,a in enumerate(a_pos):
             d.append((np.linalg.norm(a-self.agent_inp_pos)<2))
         if d[0]:
             self.agent_pos_1=[0,52]
+            self.done[0]=True
         if d[1]:
             self.agent_pos_2=[0,52]
+            self.done[1]=True
         if d[2]:
             self.agent_pos_3=[0,52]
+            self.done[2]=True
+
 
 
 
@@ -235,5 +243,6 @@ class grid_world:
         self.agent_pos_2=np.array([37,7])
         self.agent_pos_3=np.array([7,37])
         self.agent_inp_pos=[22,22]
+        self.done=[False,False,False]
 
         return self.agent_pos_1,self.agent_pos_2,self.agent_pos_3,self.agent_inp_pos
