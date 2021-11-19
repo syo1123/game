@@ -3,9 +3,11 @@ import sys, os
 import random
 
 import numpy as np
+import torch
 from copy import copy
 from pygame.locals import *
 from gridworld import grid_world
+from mind_model import mind_model
 
 
 
@@ -86,6 +88,7 @@ class action:
 
     def softmax(self,map):
         return map/np.sum(map)
+
 
 
     def step(self,agent_pos,enemy_pos,a_f,e_f):
@@ -177,11 +180,15 @@ class Crew:
     def __init__(self):
         self.act=action()
         self.cycle=0
-    def forward(self,agent_pos,inp_pos):
+        self.others_model=mind_model()
+    def forward(self,agent_pos,inp_pos,data):
         self.cycle=(self.cycle+1)%40
         if self.cycle==0:
+            
             c_f=agent_pos[0]//15+3*(agent_pos[1]//15)
             inp_f=inp_pos[0]//15+3*(inp_pos[1]//15)
+            data=torch.tensor(data[0][c_f].reshape(1,1,15,15)).float()
+            x=self.others_model.forward(data)
 
             a=self.act.step(agent_pos,inp_pos,c_f,inp_f)
         else:
